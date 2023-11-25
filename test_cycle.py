@@ -14,6 +14,19 @@ class TestCycleModule(unittest.TestCase):
     def test_get_last_day_february_leap_year(self):
         self.assertEqual(get_last_day_of_month(2024, 2), datetime(2024, 2, 29))
 
+    def test_get_last_day_invalid_month(self):
+        with self.assertRaises(ValueError):
+            get_last_day_of_month(2023, 0)
+
+    def test_get_last_day_invalid_month_high(self):
+        with self.assertRaises(ValueError):
+            get_last_day_of_month(2023, 13)
+
+    def test_get_last_day_invalid_year(self):
+        with self.assertRaises(ValueError):
+            get_last_day_of_month(-1, 2)
+
+
     # Tests for add_months
     def test_add_months_zero_month(self):
         self.assertEqual(add_months(datetime(2023, 1, 15), 0), datetime(2023, 1, 15))
@@ -23,6 +36,14 @@ class TestCycleModule(unittest.TestCase):
 
     def test_add_months_year_rollover(self):
         self.assertEqual(add_months(datetime(2023, 12, 15), 1), datetime(2024, 1, 15))
+
+    def test_add_months_negative(self):
+        with self.assertRaises(ValueError):
+            add_months(datetime(2023, 1, 15), -1)
+
+    def test_add_months_large_number(self):
+        self.assertEqual(add_months(datetime(2023, 1, 15), 120), datetime(2033, 1, 15))
+
 
     # Tests for generate_cycle_dates
     def test_generate_cycle_monthly(self):
@@ -52,6 +73,14 @@ class TestCycleModule(unittest.TestCase):
     def test_generate_cycle_invalid_cycle_period(self):
         with self.assertRaises(ValueError):
             generate_cycle_dates("2023-01-01", 5, 2)
+
+    def test_generate_cycle_invalid_date_format(self):
+        with self.assertRaises(ValueError):
+            generate_cycle_dates("2023-13-01", 12, 3)
+
+    def test_generate_cycle_negative_cycle_count(self):
+        with self.assertRaises(ValueError):
+            generate_cycle_dates("2023-01-01", 12, -1)
 
 
 if __name__ == '__main__':
