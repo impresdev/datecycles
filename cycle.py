@@ -4,10 +4,19 @@ from dateutil.relativedelta import relativedelta
 
 
 def get_last_day_of_month(year, month):
+    if not isinstance(year, int) or not isinstance(month, int):
+        raise TypeError("Year and month must be integers")
+
+    if month < 1 or month > 12:
+        raise ValueError("Month must be between 1 and 12")
+
     last_day = calendar.monthrange(year, month)[1]
     return datetime(year, month, last_day)
 
 def add_months(start_date, months):
+    if not isinstance(start_date, datetime):
+        raise TypeError("start_date must be a datetime object")
+
     if months < 0:
         raise ValueError("Number of months to add must be non-negative")
     return start_date + relativedelta(months=+months)
@@ -21,6 +30,12 @@ def parse_start_date(start_date):
         return get_last_day_of_month(year, month)
 
 def generate_cycle_dates(start_date, cycle_period, cycle_count):
+    if not isinstance(start_date, str):
+        raise TypeError("start_date must be a string")
+
+    if not isinstance(cycle_period, int) or not isinstance(cycle_count, int):
+        raise TypeError("cycle_period and cycle_count must be integers")
+
     if cycle_count < 0:
         raise ValueError("Cycle count must be non-negative")
 
