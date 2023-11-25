@@ -2,6 +2,15 @@ from datetime import datetime, timedelta
 import calendar
 from dateutil.relativedelta import relativedelta
 
+CYCLE_STRATEGIES = {
+    52: lambda d, i: d + timedelta(weeks=i),
+    26: lambda d, i: d + timedelta(weeks=2 * i),
+    13: lambda d, i: d + timedelta(weeks=4 * i),
+    12: lambda d, i: add_months(d, i),
+    4: lambda d, i: add_months(d, 3 * i)
+}
+ALLOWED_CYCLE_PERIODS = list(CYCLE_STRATEGIES.keys())
+
 
 def get_last_day_of_month(year, month):
     """
@@ -95,17 +104,9 @@ def generate_cycle_dates(start_date, cycle_period, cycle_count):
 
     start_date_obj = parse_start_date(start_date)
 
-    cycle_strategies = {
-        52: lambda d, i: d + timedelta(weeks=i),
-        26: lambda d, i: d + timedelta(weeks=2 * i),
-        13: lambda d, i: d + timedelta(weeks=4 * i),
-        12: lambda d, i: add_months(d, i),
-        4: lambda d, i: add_months(d, 3 * i)
-    }
-
-    if cycle_period not in cycle_strategies:
+    if cycle_period not in CYCLE_STRATEGIES:
         raise ValueError("Invalid cycle period")
 
-    cycle_dates = [cycle_strategies[cycle_period](start_date_obj, i).strftime("%Y-%m-%d") for i in range(cycle_count)]
+    cycle_dates = [CYCLE_STRATEGIES[cycle_period](start_date_obj, i).strftime("%Y-%m-%d") for i in range(cycle_count)]
 
     return cycle_dates

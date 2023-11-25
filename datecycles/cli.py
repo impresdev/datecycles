@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 import argparse
 from datetime import datetime
-from datecycles.core import generate_cycle_dates
+from datecycles.core import generate_cycle_dates, ALLOWED_CYCLE_PERIODS
 
 def main():
     parser = argparse.ArgumentParser(description="Generate a series of dates based on a cycle period.")
     parser.add_argument("start_date", type=str, help="Start date in YYYY-MM-DD format")
-    parser.add_argument("cycle_period", type=int, choices=[52, 26, 13, 12, 4], help="Cycle period (52, 26, 13, 12, 4)")
+    parser.add_argument("cycle_period", type=int, choices=ALLOWED_CYCLE_PERIODS, help=f"Cycle period ({', '.join(map(str, ALLOWED_CYCLE_PERIODS))})")
     parser.add_argument("cycle_count", type=int, help="Number of cycles to generate")
 
     args = parser.parse_args()
