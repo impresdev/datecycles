@@ -1,5 +1,5 @@
 import unittest
-from cycle import get_last_day_of_month, add_months, generate_cycle_dates
+from datecycles.core import get_last_day_of_month, add_months, generate_cycle_dates
 from datetime import datetime
 
 class TestCycleModule(unittest.TestCase):
