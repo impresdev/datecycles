@@ -44,14 +44,12 @@ print(generate_cycle_dates("2023-10-01", 12, 3))  # monthly for 3 cycles
 print(generate_cycle_dates("2023-10-01", 13, 3))  # 4-weekly for 3 cycles
 print(generate_cycle_dates("2023-10-01", 26, 6))  # fortnightly for 6 cycles
 print(generate_cycle_dates("2023-10-01", 52, 6))  # weekly for 6 cycles
-print(generate_cycle_dates("2023-02-29", 12, 4))  # Adjusts to 2023-02-28
-print(generate_cycle_dates("2023-11-31", 12, 4))  # Adjusts to 2023-11-30
-print(generate_cycle_dates("2023-11-32", 12, 4))  # Adjusts to 2023-11-30
-print(generate_cycle_dates("2023-13-32", 12, 4))  # Adjusts to 2023-12-31
+print(generate_cycle_dates("2023-02-29", 12, 4))  # Adjusts to correct last day of Feb
+print(generate_cycle_dates("2023-11-32", 12, 5))  # Adjusts to last day of month
 
 # ['2023-10-01', '2023-11-01', '2023-12-01']
 # ['2023-10-01', '2023-10-29', '2023-11-26']
 # ['2023-10-01', '2023-10-15', '2023-10-29', '2023-11-12', '2023-11-26', '2023-12-10']
 # ['2023-10-01', '2023-10-08', '2023-10-15', '2023-10-22', '2023-10-29', '2023-11-05']
 # ['2023-02-28', '2023-03-28', '2023-04-28', '2023-05-28']
-# ['2023-11-30', '2023-12-30', '2024-01-30', '2024-02-29']
+# ['2023-11-30', '2023-12-30', '2024-01-30', '2024-02-29', '2024-03-30']
