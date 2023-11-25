@@ -6,6 +6,8 @@ def get_last_day_of_month(year, month):
     return datetime(year, month, last_day)
 
 def add_months(start_date, months):
+    if months < 0:
+        raise ValueError("Number of months to add must be non-negative")
     month = start_date.month - 1 + months
     year = start_date.year + month // 12
     month = month % 12 + 1
@@ -13,6 +15,9 @@ def add_months(start_date, months):
     return datetime(year, month, day)
 
 def generate_cycle_dates(start_date, cycle_period, cycle_count):
+    if cycle_count < 0:
+        raise ValueError("Cycle count must be non-negative")
+
     try:
         start_date_obj = datetime.strptime(start_date, "%Y-%m-%d")
     except ValueError:
