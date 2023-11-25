@@ -26,23 +26,18 @@ def generate_cycle_dates(start_date, cycle_period, cycle_count):
 
     start_date_obj = parse_start_date(start_date)
 
-    cycle_dates = []
+    cycle_strategies = {
+        52: lambda d, i: d + timedelta(weeks=i),
+        26: lambda d, i: d + timedelta(weeks=2 * i),
+        13: lambda d, i: d + timedelta(weeks=4 * i),
+        12: lambda d, i: add_months(d, i),
+        4: lambda d, i: add_months(d, 3 * i)
+    }
 
-    for i in range(cycle_count):
-        if cycle_period == 52:  # Weekly cycles
-            cycle_date = start_date_obj + timedelta(weeks=1 * i)
-        elif cycle_period == 26:  # Fortnightly cycles
-            cycle_date = start_date_obj + timedelta(weeks=2 * i)
-        elif cycle_period == 13:  # 4-weekly cycles
-            cycle_date = start_date_obj + timedelta(weeks=4 * i)
-        elif cycle_period == 12:  # Monthly cycles
-            cycle_date = add_months(start_date_obj, i)
-        elif cycle_period == 4:  # Quarterly cycles
-            cycle_date = add_months(start_date_obj, 3 * i)
-        else:
-            raise ValueError("Invalid cycle period")
+    if cycle_period not in cycle_strategies:
+        raise ValueError("Invalid cycle period")
 
-        cycle_dates.append(cycle_date.strftime("%Y-%m-%d"))
+    cycle_dates = [cycle_strategies[cycle_period](start_date_obj, i).strftime("%Y-%m-%d") for i in range(cycle_count)]
 
     return cycle_dates
 
