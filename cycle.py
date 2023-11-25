@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 import calendar
+from dateutil.relativedelta import relativedelta
+
 
 def get_last_day_of_month(year, month):
     last_day = calendar.monthrange(year, month)[1]
@@ -8,11 +10,7 @@ def get_last_day_of_month(year, month):
 def add_months(start_date, months):
     if months < 0:
         raise ValueError("Number of months to add must be non-negative")
-    month = start_date.month - 1 + months
-    year = start_date.year + month // 12
-    month = month % 12 + 1
-    day = min(start_date.day, [31, 29 if year % 4 == 0 and not year % 100 == 0 or year % 400 == 0 else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1])
-    return datetime(year, month, day)
+    return start_date + relativedelta(months=+months)
 
 def generate_cycle_dates(start_date, cycle_period, cycle_count):
     if cycle_count < 0:
