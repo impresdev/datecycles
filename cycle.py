@@ -12,15 +12,19 @@ def add_months(start_date, months):
         raise ValueError("Number of months to add must be non-negative")
     return start_date + relativedelta(months=+months)
 
+def parse_start_date(start_date):
+    """Parse and validate the start date."""
+    try:
+        return datetime.strptime(start_date, "%Y-%m-%d")
+    except ValueError:
+        year, month, _ = map(int, start_date.split('-'))
+        return get_last_day_of_month(year, month)
+
 def generate_cycle_dates(start_date, cycle_period, cycle_count):
     if cycle_count < 0:
         raise ValueError("Cycle count must be non-negative")
 
-    try:
-        start_date_obj = datetime.strptime(start_date, "%Y-%m-%d")
-    except ValueError:
-        year, month, _ = map(int, start_date.split('-'))
-        start_date_obj = get_last_day_of_month(year, month)
+    start_date_obj = parse_start_date(start_date)
 
     cycle_dates = []
 
