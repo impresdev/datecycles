@@ -1,1 +1,3 @@
-# DateCycles\n\nA Python package for managing date cycles.
+# DateCycles
+
+A Python package for managing date cycles.
