@@ -67,7 +67,19 @@ pytest
 Install dependencies using:
 
 ```bash
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
+```
+
+## Building
+
+Build and install `Datecycles` using:
+
+```bash
+pip install wheel
+python setup.py sdist bdist_wheel
+pip install dist/datecycles-0.1.1-py3-none-any.whl
 ```
 
 ## Contributing
