@@ -1,6 +1,6 @@
 # Datecycles
 
-`Datecycles` is a Python package designed for generating a series of dates based on specific cycle periods. It's particularly useful for scheduling events on a weekly, fortnightly, 4-weekly, monthly, or quarterly basis.
+`Datecycles` is a simple Python package designed for generating a series of dates based on specific cycle periods including. It may help for scheduling events on a weekly, fortnightly, 4-weekly, monthly, or quarterly basis.
 
 ## Installation
 
@@ -33,10 +33,15 @@ datecycles <start_date> <cycle_period> <cycle_count>
 #### Example
 
 ```bash
-datecycles 2023-01-01 12 5
+datecycles 2023-01-01 13 5
+# 2023-01-01
+# 2023-01-29
+# 2023-02-26
+# 2023-03-26
+# 2023-04-23
 ```
 
-This command generates five monthly dates starting from January 1, 2023.
+This command generates five 4-weekly dates starting from January 1, 2023.
 
 ### In Python Scripts
 
