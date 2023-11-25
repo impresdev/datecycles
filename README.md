@@ -56,7 +56,7 @@ for date in cycle_dates:
 Run unit tests using:
 
 ```bash
-python -m unittest discover -s tests
+pytest
 ```
 
 ## Dependencies
